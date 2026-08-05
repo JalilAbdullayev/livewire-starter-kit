@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(RolesAndPermissionsSeeder::class);
+        // $this->call(RolesAndPermissionsSeeder::class);
+        $this->call(SiteModulesSeeder::class);
 
         $admin = User::query()->firstOrCreate(
             ['email' => 'admin@mail.com'],
@@ -27,6 +28,6 @@ class DatabaseSeeder extends Seeder
             ],
         );
 
-        $admin->assignRole(RolesEnum::SuperAdmin);
+        // $admin->assignRole(RolesEnum::SuperAdmin);
     }
 }
