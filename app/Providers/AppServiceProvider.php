@@ -2,11 +2,16 @@
 
 namespace App\Providers;
 
+use App\Enums\RolesEnum;
+use App\Models\User;
+use App\Policies\RolePolicy;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Spatie\Permission\Models\Role;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        $this->configureAuthorization();
     }
 
     /**
@@ -46,5 +52,21 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised()
             : null,
         );
+    }
+
+    /**
+     * Configure authorization defaults for the starter kit.
+     */
+    protected function configureAuthorization(): void
+    {
+        Gate::policy(Role::class, RolePolicy::class);
+
+        Gate::before(function (?User $user, string $ability): ?bool {
+            if (! $user instanceof User) {
+                return null;
+            }
+
+            return $user->hasRole(RolesEnum::SuperAdmin) ? true : null;
+        });
     }
 }

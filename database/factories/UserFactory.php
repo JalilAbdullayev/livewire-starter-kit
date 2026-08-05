@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\RolesEnum;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -56,5 +57,25 @@ class UserFactory extends Factory
             'two_factor_recovery_codes' => encrypt(json_encode(['recovery-code-1'])),
             'two_factor_confirmed_at' => now(),
         ]);
+    }
+
+    /**
+     * Assign the admin role after the user is created.
+     */
+    public function admin(): static
+    {
+        return $this->afterCreating(function (User $user): void {
+            $user->assignRole(RolesEnum::Admin);
+        });
+    }
+
+    /**
+     * Assign the super admin role after the user is created.
+     */
+    public function superAdmin(): static
+    {
+        return $this->afterCreating(function (User $user): void {
+            $user->assignRole(RolesEnum::SuperAdmin);
+        });
     }
 }
