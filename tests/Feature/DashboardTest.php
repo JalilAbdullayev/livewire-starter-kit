@@ -24,7 +24,7 @@ test('authenticated users can visit the dashboard', function () {
     $this->actingAs($user)
         ->get(route('dashboard'))
         ->assertOk()
-        ->assertSee('Welcome back, '.$user->name, false);
+        ->assertSee(__('Welcome back, :name', ['name' => $user->name]), false);
 });
 
 test('dashboard shows account status cards', function () {

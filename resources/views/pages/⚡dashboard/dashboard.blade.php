@@ -6,7 +6,7 @@
         </div>
 
         <div class="flex flex-wrap gap-2">
-            <flux:button :href="route('home')" variant="ghost" icon="globe-alt" wire:navigate>
+            <flux:button :href="localized_route('home')" variant="ghost" icon="globe-alt" wire:navigate>
                 {{ __('View site') }}
             </flux:button>
 
@@ -33,9 +33,10 @@
                 </div>
                 <flux:icon.envelope class="size-5 text-zinc-400" />
             </div>
-            @if (! $this->emailIsVerified)
+            @if (!$this->emailIsVerified)
                 <flux:text class="mt-3 text-sm">
-                    <flux:link :href="route('profile.edit')" wire:navigate>{{ __('Verify in profile settings') }}</flux:link>
+                    <flux:link :href="route('profile.edit')" wire:navigate>{{ __('Verify in profile settings') }}
+                    </flux:link>
                 </flux:text>
             @endif
         </div>
@@ -50,9 +51,10 @@
                 </div>
                 <flux:icon.shield-check class="size-5 text-zinc-400" />
             </div>
-            @if (! $this->twoFactorEnabled)
+            @if (!$this->twoFactorEnabled)
                 <flux:text class="mt-3 text-sm">
-                    <flux:link :href="route('security.edit')" wire:navigate>{{ __('Enable in security settings') }}</flux:link>
+                    <flux:link :href="route('security.edit')" wire:navigate>{{ __('Enable in security settings') }}
+                    </flux:link>
                 </flux:text>
             @endif
         </div>
@@ -69,7 +71,8 @@
             </div>
             @if ($this->passkeysCount === 0)
                 <flux:text class="mt-3 text-sm">
-                    <flux:link :href="route('security.edit')" wire:navigate>{{ __('Add a passkey in security settings') }}</flux:link>
+                    <flux:link :href="route('security.edit')" wire:navigate>
+                        {{ __('Add a passkey in security settings') }}</flux:link>
                 </flux:text>
             @endif
         </div>
@@ -86,8 +89,11 @@
                 <li class="flex items-start gap-3">
                     <span @class([
                         'mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full text-xs font-semibold',
-                        'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300' => $step['done'],
-                        'bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400' => ! $step['done'],
+                        'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300' =>
+                            $step['done'],
+                        'bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400' => !$step[
+                            'done'
+                        ],
                     ])>
                         @if ($step['done'])
                             <flux:icon.check class="size-3.5" />
@@ -118,32 +124,38 @@
             <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 <div class="rounded-xl border border-zinc-200 p-5 dark:border-zinc-700">
                     <flux:text class="text-zinc-500">{{ __('Unread messages') }}</flux:text>
-                    <flux:heading size="xl" class="mt-2">{{ $this->adminSnapshot['unreadContactMessages'] }}</flux:heading>
+                    <flux:heading size="xl" class="mt-2">{{ $this->adminSnapshot['unreadContactMessages'] }}
+                    </flux:heading>
                 </div>
 
                 <div class="rounded-xl border border-zinc-200 p-5 dark:border-zinc-700">
                     <flux:text class="text-zinc-500">{{ __('Active modules') }}</flux:text>
-                    <flux:heading size="xl" class="mt-2">{{ $this->adminSnapshot['activeModules'] }}</flux:heading>
+                    <flux:heading size="xl" class="mt-2">{{ $this->adminSnapshot['activeModules'] }}
+                    </flux:heading>
                 </div>
 
                 <div class="rounded-xl border border-zinc-200 p-5 dark:border-zinc-700">
                     <flux:text class="text-zinc-500">{{ __('Inactive modules') }}</flux:text>
-                    <flux:heading size="xl" class="mt-2">{{ $this->adminSnapshot['inactiveModules'] }}</flux:heading>
+                    <flux:heading size="xl" class="mt-2">{{ $this->adminSnapshot['inactiveModules'] }}
+                    </flux:heading>
                 </div>
 
                 <div class="rounded-xl border border-zinc-200 p-5 dark:border-zinc-700">
                     <flux:text class="text-zinc-500">{{ __('Unpublished blog posts') }}</flux:text>
-                    <flux:heading size="xl" class="mt-2">{{ $this->adminSnapshot['unpublishedBlogPosts'] }}</flux:heading>
+                    <flux:heading size="xl" class="mt-2">{{ $this->adminSnapshot['unpublishedBlogPosts'] }}
+                    </flux:heading>
                 </div>
 
                 <div class="rounded-xl border border-zinc-200 p-5 dark:border-zinc-700">
                     <flux:text class="text-zinc-500">{{ __('Unpublished FAQ items') }}</flux:text>
-                    <flux:heading size="xl" class="mt-2">{{ $this->adminSnapshot['unpublishedFaqItems'] }}</flux:heading>
+                    <flux:heading size="xl" class="mt-2">{{ $this->adminSnapshot['unpublishedFaqItems'] }}
+                    </flux:heading>
                 </div>
 
                 <div class="rounded-xl border border-zinc-200 p-5 dark:border-zinc-700">
                     <flux:text class="text-zinc-500">{{ __('Unpublished service cards') }}</flux:text>
-                    <flux:heading size="xl" class="mt-2">{{ $this->adminSnapshot['unpublishedServiceCards'] }}</flux:heading>
+                    <flux:heading size="xl" class="mt-2">{{ $this->adminSnapshot['unpublishedServiceCards'] }}
+                    </flux:heading>
                 </div>
             </div>
 
@@ -152,10 +164,8 @@
 
                 <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($this->adminLinks as $link)
-                        <a
-                            href="{{ $link['href'] }}"
-                            class="flex items-center justify-between rounded-lg border border-zinc-200 px-4 py-3 transition hover:border-amber-500 dark:border-zinc-700 dark:hover:border-amber-500"
-                        >
+                        <a href="{{ $link['href'] }}"
+                            class="flex items-center justify-between rounded-lg border border-zinc-200 px-4 py-3 transition hover:border-amber-500 dark:border-zinc-700 dark:hover:border-amber-500">
                             <span class="font-medium">{{ $link['label'] }}</span>
                             <flux:badge>{{ $link['value'] }}</flux:badge>
                         </a>

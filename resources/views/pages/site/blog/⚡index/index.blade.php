@@ -5,7 +5,8 @@
         @forelse ($this->posts as $post)
             <article class="rounded-lg border border-zinc-200 p-5 dark:border-zinc-700">
                 <h2 class="text-xl font-semibold">
-                    <a href="{{ route('site.blog.show', $post->slug) }}" class="hover:text-amber-600" wire:navigate>
+                    <a href="{{ localized_route('site.blog.show', $post->slug) }}" class="hover:text-amber-600"
+                        wire:navigate>
                         {{ $post->title }}
                     </a>
                 </h2>

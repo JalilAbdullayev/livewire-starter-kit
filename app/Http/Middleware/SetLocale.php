@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Enums\LocaleEnum;
+use App\Support\LocalizedRoute;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,11 +16,10 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = $request->session()->get('locale', config('app.locale'));
+        $locale = LocalizedRoute::localeFromRequest($request);
 
-        if (LocaleEnum::isSupported($locale)) {
-            app()->setLocale($locale);
-        }
+        $request->session()->put('locale', $locale->value);
+        app()->setLocale($locale->value);
 
         return $next($request);
     }

@@ -73,5 +73,5 @@ test('home page primary action links to contact when contact module is active', 
     $this->get(route('home'))
         ->assertOk()
         ->assertSee(__('Get in touch'), false)
-        ->assertSee(route('site.contact'), false);
+        ->assertSee(localized_route('site.contact'), false);
 });

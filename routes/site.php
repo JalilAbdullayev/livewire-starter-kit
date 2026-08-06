@@ -1,33 +1,55 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Support\LocalizedRoute;
 
-Route::middleware('module:about')->group(function () {
-    Route::livewire('/about', 'pages::site.about')->name('site.about');
-});
-
-Route::middleware('module:contact')->group(function () {
-    Route::livewire('/contact', 'pages::site.contact')->name('site.contact');
-});
-
-Route::middleware('module:blog')->group(function () {
-    Route::livewire('/blog', 'pages::site.blog.index')->name('site.blog.index');
-    Route::livewire('/blog/{slug}', 'pages::site.blog.show')->name('site.blog.show');
-});
-
-Route::middleware('module:privacy')->group(function () {
-    Route::livewire('/privacy', 'pages::site.privacy')->name('site.privacy');
-});
-
-Route::middleware('module:terms')->group(function () {
-    Route::livewire('/terms', 'pages::site.terms')->name('site.terms');
-});
-
-Route::middleware('module:faq')->group(function () {
-    Route::livewire('/faq', 'pages::site.faq')->name('site.faq');
-});
-
-Route::middleware('module:services')->group(function () {
-    Route::livewire('/services', 'pages::site.services.index')->name('site.services.index');
-    Route::livewire('/services/{slug}', 'pages::site.services.show')->name('site.services.show');
-});
+LocalizedRoute::register([
+    [
+        'name' => 'home',
+        'component' => 'pages::site.home',
+    ],
+    [
+        'name' => 'site.about',
+        'component' => 'pages::site.about',
+        'middleware' => ['module:about'],
+    ],
+    [
+        'name' => 'site.contact',
+        'component' => 'pages::site.contact',
+        'middleware' => ['module:contact'],
+    ],
+    [
+        'name' => 'site.blog.index',
+        'component' => 'pages::site.blog.index',
+        'middleware' => ['module:blog'],
+    ],
+    [
+        'name' => 'site.blog.show',
+        'component' => 'pages::site.blog.show',
+        'middleware' => ['module:blog'],
+    ],
+    [
+        'name' => 'site.privacy',
+        'component' => 'pages::site.privacy',
+        'middleware' => ['module:privacy'],
+    ],
+    [
+        'name' => 'site.terms',
+        'component' => 'pages::site.terms',
+        'middleware' => ['module:terms'],
+    ],
+    [
+        'name' => 'site.faq',
+        'component' => 'pages::site.faq',
+        'middleware' => ['module:faq'],
+    ],
+    [
+        'name' => 'site.services.index',
+        'component' => 'pages::site.services.index',
+        'middleware' => ['module:services'],
+    ],
+    [
+        'name' => 'site.services.show',
+        'component' => 'pages::site.services.show',
+        'middleware' => ['module:services'],
+    ],
+]);

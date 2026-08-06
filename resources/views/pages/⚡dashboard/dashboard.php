@@ -77,7 +77,7 @@ new #[Title('Dashboard')] class extends Component
             [
                 'label' => __('Visit your public site'),
                 'done' => false,
-                'href' => route('home'),
+                'href' => localized_route('home'),
             ],
         ];
 

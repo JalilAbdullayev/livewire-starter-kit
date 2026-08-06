@@ -28,7 +28,7 @@ new #[Title('Home')] class extends Component
         if (SiteModule::isActive(SiteModuleEnum::Contact)) {
             return [
                 'label' => __('Get in touch'),
-                'href' => route('site.contact'),
+                'href' => localized_route('site.contact'),
             ];
         }
 
@@ -40,7 +40,7 @@ new #[Title('Home')] class extends Component
 
         return [
             'label' => $firstModule->label,
-            'href' => route($firstModule->key->routeName()),
+            'href' => localized_route($firstModule->key->routeName()),
         ];
     }
 
