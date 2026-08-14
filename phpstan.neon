@@ -11,3 +11,12 @@ parameters:
         - routes/
 
     level: 7
+
+    # Used by Livewire MFC anonymous classes under resources/views/pages (not in paths).
+    ignoreErrors:
+        -
+            identifier: trait.unused
+            path: app/Livewire/Concerns/LoadsSiteContentPage.php
+        -
+            identifier: trait.unused
+            path: app/Livewire/Concerns/RendersSitePage.php

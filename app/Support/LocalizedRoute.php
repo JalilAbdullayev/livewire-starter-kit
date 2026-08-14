@@ -5,6 +5,7 @@ namespace App\Support;
 use App\Enums\LocaleEnum;
 use App\Enums\SiteModuleEnum;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -53,10 +54,12 @@ class LocalizedRoute
     }
 
     /**
-     * @param  array<string, mixed>  $parameters
+     * @param  array<int|string, mixed>|string|int  $parameters
      */
-    public static function url(string $name, array $parameters = [], ?LocaleEnum $locale = null): string
+    public static function url(string $name, array|string|int $parameters = [], ?LocaleEnum $locale = null): string
     {
+        $parameters = Arr::wrap($parameters);
+
         if (! self::isSiteRoute($name)) {
             return route($name, $parameters);
         }

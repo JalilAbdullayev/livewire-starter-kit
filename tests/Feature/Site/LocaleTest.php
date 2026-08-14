@@ -2,6 +2,7 @@
 
 use App\Enums\LocaleEnum;
 use App\Enums\SiteModuleEnum;
+use App\Models\BlogPost;
 use App\Models\SiteModule;
 use App\Support\LocalizedRoute;
 use Database\Seeders\SiteModulesSeeder;
@@ -103,6 +104,18 @@ test('localized route helper resolves current locale from application', function
     app()->setLocale('en');
 
     expect(localized_route('site.contact'))->toEndWith('/en/contact');
+});
+
+test('localized route helper accepts a scalar route parameter', function () {
+    SiteModule::query()->where('key', SiteModuleEnum::Blog)->update(['is_active' => true]);
+    SiteModule::clearActiveCache();
+
+    $post = BlogPost::factory()->create(['slug' => 'hello-world']);
+
+    expect(localized_route('site.blog.show', $post->slug))
+        ->toEndWith('/blog/hello-world')
+        ->and(localized_route('site.blog.show', $post->slug, LocaleEnum::English))
+        ->toEndWith('/en/blog/hello-world');
 });
 
 test('english home page exposes a valid livewire update endpoint', function () {
